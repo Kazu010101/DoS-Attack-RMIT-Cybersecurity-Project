@@ -6,6 +6,8 @@ One of the Red teaming activities for my RMIT Cybersecurity Project
 - Use Ettercap from Kali Linux to launch DoS attack against the target
 - Verify the successful attack using Wireshark
 
+## The Scenario
+
 ![red team lab nmap](https://github.com/user-attachments/assets/092e32ce-cdae-4509-8172-231a3503be58)
 
 *Figure 1: In this follow-up scenario, the attacker has successfully scan the network using nmap and found several host with open TCP ports.*
