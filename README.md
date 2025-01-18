@@ -43,9 +43,9 @@ Once verified that both machines could ping each other, the following Dos Attack
 
 - **Stop the attack** :To stop the Dos Aattack, double click on the dos_attack plugins list.
 
-![dosattackk](https://github.com/user-attachments/assets/7788ac07-b030-4629-a89d-f676eed01d56)
+![ddoossaattcck](https://github.com/user-attachments/assets/332304b3-7f13-45a5-b0ba-4390ffd77934)
 
-*Figure 6: Prompts showing the attack is started. Clicking the dos_attack plugins list will stop the attack.*
+*Figure 6: Prompts showing the attack is started (1). Double clicking the dos_attack plugins list will stop the attack (2).*
 
 ## Verifying the DoS attack using Wireshark
 
