@@ -14,39 +14,51 @@ One of the Red teaming activities for my RMIT Cybersecurity Project
 
 ![nmap scan red team](https://github.com/user-attachments/assets/b2a83336-6849-4f89-84b0-6fa195d3352a)
 
-*Figure 2: We still use the same setup from my [Nmap Scan Lab](https://github.com/Kazu010101/Nmap-Scan-RMIT-Cybersecurity-Project/blob/main/README.md), in which 2 Virtual Machines were used for the victim in Windows 10 (192.168.1.254) and the attacker in Kali Linux (192.168.1.33).* 
-
+*Figure 2: We still use the same setup from my [Nmap Scan Lab](https://github.com/Kazu010101/Nmap-Scan-RMIT-Cybersecurity-Project/blob/main/README.md), in which 2 Virtual Machines were used for the victim in Windows 10 (192.168.1.254 /24) and the attacker in Kali Linux (192.168.1.33 /24).* 
 
 ## DoS Attack using Ettercap
 
 Once verified that both machines could ping each other, the following Dos Attack is conducted by following these steps:
-- Launch Ettercap: From the terminal, type *sudo Ettercap -G* and input password
-- Select Network Interface: in this lab, I choose eth0. Next, click the tick icon on top right.
+- **Launch Ettercap**: From the terminal, type *sudo Ettercap -G* and input password
+- **Select Network Interface**: in this lab, I choose eth0. Next, click the tick icon on top right of the interface.
 
 ![ettercapg](https://github.com/user-attachments/assets/4a10ed0d-5cf4-48f4-8a1f-e1b43ed6f066)
 
+*Figure 3: launching ettercap from Kali Linx Terminal, and choosing the network interface.*
 
-*Figure 3: Ettercap is open in GUI mode. Select the network interface, and click the tick icon to confirm*
+- **Select DoS Attack plugins**: Click the 3 dots menu icon on top right > Plugins > Manage Plugins > double click dos_attack from the list.
 
-- nmap -sT -v -p0 192.168.1.5
-  
-![nmap scan 4](https://github.com/user-attachments/assets/fb9b12fb-1620-4160-a881-e612c702cc80)
+![ettercap steps](https://github.com/user-attachments/assets/a4918a11-481f-46ba-ae55-79547a2b7481)
 
-*Figure 5: Further scan against 192.168.1.5 discovers open ports on the host.*
+*Figure 4: selecting the dos attack from Ettercap plugins*
 
--nmap -O 192.168.1.5
+- **Insert Victim's IP Address** : 192.168.1.254 > Enter 
+- **Insert Unused IP** : 192.168.1.222 (This is because no Host has this address based on Nmap Scan) > Enter
 
-![nmap scan 5](https://github.com/user-attachments/assets/12e2ede9-be25-49bd-b7c1-1ccda79c81d0)
+![ettercaptgt](https://github.com/user-attachments/assets/13a350a1-942c-482d-8cd6-ddabe976c372)
 
-*Figure 6: This command scans for the Operating System of the host machine; it identifies the host's OS is Windows 10.*
+*Figure 5: Once the Victim's IP and Unused IP are entered, press enter to the attack.*
+
+- **Stop the attack** :To stop the Dos Aattack, double click on the dos_attack plugins list.
+
+![dosattackk](https://github.com/user-attachments/assets/7788ac07-b030-4629-a89d-f676eed01d56)
+
+*Figure 6: Prompts showing the attack is started. Clicking the dos_attack plugins list will stop the attack.*
+
+## Verifying the DoS attack using Wireshark
+
+While the Ettercap DoS attack was proceeding, we opened Wireshark from Kali (can also be alternatively done from Windows 10 but required prior Wireshark installation) and captured the traffic on eth0 network interface.
+
+![wiresharkdos](https://github.com/user-attachments/assets/d263811a-35d2-4d58-aa3d-a42e21f69b63)
+
+*Figure 7: Verification that the DoS attack has been succesfully conducted on Wireshark.*
 
 ## Result
 
-The most important information from the nmap scan is that there are 3 open TCP ports, which are 135, 139, and 445. Considering that the target also uses Windows 10 OS, these information suggest that the host is running a file sharing service such as SMB protocol, which can be further exploited by the attacker.
+The Wireshark pcap log from this lab verifies the successful DoS attack. The repeated TCP Packets with of RST, ACK flags across multiple packets, especially in a short time span, suggests that the victim (192.168.1.254) is being overwhelmed with connection attempts or resets by the attacker (192.168.1.33).
 
-## Mitigation
+## Mitigation Plan
 
-- The Office Network needs to be subnetted into at least two subnets, each seperately for the internal staff and the guest.
+- The Office Network needs to be subnetted into at least two subnets, each seperately for the internal staff and the guest network.
 - Additional security tools such as IPS and firewalls are required to protect internal staff network from malicious traffic originiating from outside and guest network.
-- Additions of network devices such as pfSense Router is required so that ACL can be set up to prevent the flow of traffic from guest network entering the internal staff network.
-- Turn on the Windows Firewall
+- Turn on the Windows Firewall on Windows 10.
