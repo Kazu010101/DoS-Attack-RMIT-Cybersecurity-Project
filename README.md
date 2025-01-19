@@ -35,7 +35,7 @@ Once verified that both machines could ping each other, the following Dos Attack
 *Figure 4: selecting the dos attack from Ettercap plugins*
 
 - **Insert Victim's IP Address** : 192.168.1.254 > Enter 
-- **Insert Unused IP** : 192.168.1.222 (This is because no Host has this address based on Nmap Scan) > Enter
+- **Insert Unused IP** : 192.168.1.222 (This is because no Host in the network has this address based on Nmap Scan) > Enter
 
 ![ettercaptgt](https://github.com/user-attachments/assets/13a350a1-942c-482d-8cd6-ddabe976c372)
 
